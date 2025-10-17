@@ -6,13 +6,14 @@ import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10
 
 /* ====== 1) Cấu hình Firebase - thay bằng thông tin của bạn ====== */
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com/",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
+  apiKey: "AIzaSyB5O8Z0X4PFC3qf6QNRsnyww34bBKKNP_E",
+  authDomain: "alarm-90538.firebaseapp.com",
+  databaseURL: "https://alarm-90538-default-rtdb.firebaseio.com",
+  projectId: "alarm-90538",
+  storageBucket: "alarm-90538.firebasestorage.app",
+  messagingSenderId: "142730344071",
+  appId: "1:142730344071:web:96e1cb18f1c849e04b2a22",
+  measurementId: "G-2DMVXWG95V"
 };
 /* ================================================================ */
 
@@ -186,3 +187,4 @@ clearBtn.addEventListener("click", () => {
   multiBarChart.data.datasets.forEach(ds => ds.data = []);
   multiBarChart.update();
 });
+
