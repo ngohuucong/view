@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bảng giám sát PZEM & Nhiệt độ (Firebase)</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Firebase SDK -->
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js"></script>
+</head>
+<body>
+  <header>
+    <h1>🌡️ Hệ thống giám sát điện & nhiệt độ</h1>
+  </header>
+
+  <main class="dashboard">
+    <section class="card temperature">
+      <h2>Nhiệt độ</h2>
+      <p id="temp-value">-- °C</p>
+      <p id="fire-alert" class="alert hidden">🔥 CẢNH BÁO CHÁY!</p>
+    </section>
+
+    <section class="card pzem">
+      <h2>Thông số PZEM</h2>
+      <div class="pzem-data">
+        <p>Điện áp: <span id="voltage">--</span> V</p>
+        <p>Dòng điện: <span id="current">--</span> A</p>
+        <p>Công suất: <span id="power">--</span> W</p>
+        <p>Năng lượng: <span id="energy">--</span> Wh</p>
+      </div>
+    </section>
+
+    <section class="card chart">
+      <h2>Biểu đồ giám sát</h2>
+      <canvas id="dataChart"></canvas>
+      <button id="saveBtn">💾 Lưu dữ liệu</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Hệ thống giám sát | Thiết kế bởi ChatGPT</p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
