@@ -170,7 +170,7 @@ saveBtn.addEventListener("click", () => {
     return `${new Date(h.ts).toISOString()},${h.timeStr},${h.temp},${h.voltage},${h.current},${h.power},${h.energy}`;
   });
   const blob = new Blob([lines.join("\n")], { type: "text/plain" });
-const link = document.createElement("a");
+  const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
   link.download = `data_log_${new Date().toISOString().slice(0,10)}.txt`;
   link.click();
