@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Giám sát PZEM & Nhiệt độ - Biểu đồ theo ngày</title>
+  <title>Giám sát năng lượng</title>
 
   <link rel="stylesheet" href="style.css" />
   <!-- Chart.js -->
@@ -37,13 +37,13 @@
     </section>
 
     <section class="card chart-card">
-      <h2>Biểu đồ theo ngày (cột theo thời gian)</h2>
+      <h2>Biểu đồ năng lượng tiêu thụ theo ngày</h2>
       <div class="chart-wrap">
         <canvas id="multiBarChart"></canvas>
       </div>
       <div class="controls">
-        <button id="saveBtn">💾 Lưu file .txt</button>
-        <button id="clearBtn">🧹 Xóa dữ liệu cục bộ</button>
+        <button id="saveBtn">💾 Save</button>
+        <button id="clearBtn">🧹 Delete</button>
       </div>
       <div class="fire-log">
         <h3>Nhật ký báo cháy (trong phiên)</h3>
@@ -53,9 +53,10 @@
   </main>
 
   <footer>
-    <p>© 2025 Giám sát | Thiết kế bởi ChatGPT</p>
+    <p>© 2025 scada hệ thống điện</p>
   </footer>
 
   <script type="module" src="script.js"></script>
 </body>
 </html>
+
