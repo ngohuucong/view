@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bảng giám sát PZEM & Nhiệt độ (Firebase)</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Giám sát PZEM & Nhiệt độ - Biểu đồ theo ngày</title>
 
-  <!-- Firebase SDK -->
-  <script type="module" src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
-  <script type="module" src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Firebase (module import trong script.js) -->
 </head>
 <body>
   <header>
@@ -17,31 +17,43 @@
   </header>
 
   <main class="dashboard">
-    <section class="card temperature">
-      <h2>Nhiệt độ</h2>
-      <p id="temp-value">-- °C</p>
-      <p id="fire-alert" class="alert hidden">🔥 CẢNH BÁO CHÁY!</p>
-    </section>
-
-    <section class="card pzem">
-      <h2>Thông số PZEM</h2>
-      <div class="pzem-data">
-        <p>Điện áp: <span id="voltage">--</span> V</p>
-        <p>Dòng điện: <span id="current">--</span> A</p>
-        <p>Công suất: <span id="power">--</span> W</p>
-        <p>Năng lượng: <span id="energy">--</span> Wh</p>
+    <section class="card status">
+      <div class="row">
+        <div>
+          <h2>Nhiệt độ</h2>
+          <p id="temp-value">-- °C</p>
+        </div>
+        <div>
+          <h2>Báo cháy</h2>
+          <p id="fire-badge" class="badge normal">Bình thường</p>
+        </div>
+      </div>
+      <div class="pzem-list">
+        <p>Điện áp: <b id="voltage">--</b> V</p>
+        <p>Dòng điện: <b id="current">--</b> A</p>
+        <p>Công suất: <b id="power">--</b> W</p>
+        <p>Năng lượng: <b id="energy">--</b> Wh</p>
       </div>
     </section>
 
-    <section class="card chart">
-      <h2>Biểu đồ giám sát</h2>
-      <canvas id="dataChart"></canvas>
-      <button id="saveBtn">💾 Lưu dữ liệu</button>
+    <section class="card chart-card">
+      <h2>Biểu đồ theo ngày (cột theo thời gian)</h2>
+      <div class="chart-wrap">
+        <canvas id="multiBarChart"></canvas>
+      </div>
+      <div class="controls">
+        <button id="saveBtn">💾 Lưu file .txt</button>
+        <button id="clearBtn">🧹 Xóa dữ liệu cục bộ</button>
+      </div>
+      <div class="fire-log">
+        <h3>Nhật ký báo cháy (trong phiên)</h3>
+        <ul id="fire-log-list"></ul>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Hệ thống giám sát | Thiết kế bởi ChatGPT</p>
+    <p>© 2025 Giám sát | Thiết kế bởi ChatGPT</p>
   </footer>
 
   <script type="module" src="script.js"></script>
