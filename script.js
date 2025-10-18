@@ -79,3 +79,4 @@ db.ref("fire_logs").limitToLast(10).on("child_added", snap => {
   fireLog.prepend(li);
 });
 
+
