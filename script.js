@@ -44,11 +44,11 @@ db.ref("sensors").on("value", snap => {
   const data = snap.val();
   if (!data) return;
 
-  tempEl.textContent = '${data.temperature} °C';
-  voltageEl.textContent = '${data.voltage} V';
-  currentEl.textContent = '${data.current} A';
-  powerEl.textContent = '${data.power} W';
-  energyEl.textContent = '${data.energy} Wh';
+  tempEl.textContent = `${data.temperature} °C`;
+  voltageEl.textContent = `${data.voltage} V`;
+  currentEl.textContent = `${data.current} A`;
+  powerEl.textContent = `${data.power} W`;
+  energyEl.textContent = `${data.energy} Wh`;
 
   // Cập nhật chart
   chart.data.datasets[0].data = [
@@ -78,6 +78,3 @@ db.ref("fire_logs").limitToLast(10).on("child_added", snap => {
   li.textContent = `${log.time} - ${log.message}`;
   fireLog.prepend(li);
 });
-
-
-
