@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Giám sát năng lượng</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Giám sát điện & nhiệt độ (Firebase)</title>
+  <link rel="stylesheet" href="style.css">
 
-  <link rel="stylesheet" href="style.css" />
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
-  <!-- Firebase (module import trong script.js) -->
 </head>
 <body>
   <header>
-    <h1>Hệ thống giám sát điện năng & nhiệt độ</h1>
+    <h1>🌡️ Hệ thống giám sát điện & nhiệt độ</h1>
   </header>
 
   <main class="dashboard">
@@ -37,27 +34,21 @@
     </section>
 
     <section class="card chart-card">
-      <h2>Biểu đồ năng lượng tiêu thụ theo ngày</h2>
+      <h2>Biểu đồ giá trị tức thời</h2>
       <div class="chart-wrap">
-        <canvas id="multiBarChart"></canvas>
-      </div>
-      <div class="controls">
-        <button id="saveBtn">💾 Save</button>
-        <button id="clearBtn">🧹 Delete</button>
+        <canvas id="barChart"></canvas>
       </div>
       <div class="fire-log">
-        <h3>Nhật ký báo cháy (trong phiên)</h3>
+        <h3>Nhật ký báo cháy</h3>
         <ul id="fire-log-list"></ul>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 scada hệ thống điện</p>
+    <p>© 2025 Giám sát | Thiết kế bởi ChatGPT</p>
   </footer>
 
   <script type="module" src="script.js"></script>
 </body>
 </html>
-
-
