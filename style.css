@@ -1,73 +1,89 @@
-:root{
-  --bg:#f6f8fb;
-  --card:#ffffff;
-  --accent:#0b76ff;
-  --danger:#ff3b30;
-  --text:#222;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #f5f8ff;
+  color: #222;
+}
+header {
+  background: linear-gradient(90deg, #0077ff, #00c3ff);
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+}
+main {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter, "Segoe UI", Roboto, sans-serif;
-  background:var(--bg);
-  color:var(--text);
+.top-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-header{
-  background:var(--accent);
-  color:#fff;
-  padding:1rem;
-  text-align:center;
+.temperature-card, .fire-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  width: 45%;
+  text-align: center;
+  padding: 20px;
 }
 
-.dashboard{
-  padding:1rem;
-  display:grid;
-  gap:1rem;
-  grid-template-columns:1fr;
+.temperature-card .icon,
+.fire-card .icon {
+  width: 60px;
+  height: 60px;
 }
 
-@media(min-width:900px){
-  .dashboard{
-    grid-template-columns: 350px 1fr;
+.safe { color: green; font-weight: bold; }
+.danger { color: red; font-weight: bold; }
+
+.sensor-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.gauge {
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: center 10px;
+  background-color: white;
+  width: 48%;
+  text-align: center;
+  border-radius: 15px;
+  padding: 80px 10px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.chart-section, .log-section {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+canvas {
+  width: 100%;
+  height: 300px;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #0077ff;
+  color: white;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .temperature-card, .fire-card, .gauge {
+    width: 100%;
   }
 }
-
-.card{
-  background:var(--card);
-  padding:1rem;
-  border-radius:12px;
-  box-shadow:0 4px 16px rgba(0,0,0,0.06);
-}
-
-.status .row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.status h2 {margin:0 0 .4rem 0;}
-
-#temp-value{
-  font-size:2rem;
-  color:var(--accent);
-  margin:0;
-}
-
-.pzem-list p{margin:.4rem 0}
-
-.badge{
-  display:inline-block;
-  padding:.4rem .7rem;
-  border-radius:8px;
-  font-weight:600;
-}
-.badge.normal{background:#edf6ff; color:var(--accent)}
-.badge.alert{background:#ffecec; color:var(--danger); border:1px solid rgba(255,59,48,0.12)}
-
-.chart-wrap{height:350px; width:100%}
-.fire-log{margin-top:1rem; max-height:160px; overflow:auto}
-.fire-log ul{padding-left:1.2rem; margin:.3rem 0}
-.fire-log li{font-size:.9rem; color:var(--danger); margin:.2rem 0}
-
-footer{text-align:center; font-size:.85rem; color:#666; margin:1rem 0;}
