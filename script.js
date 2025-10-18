@@ -1,4 +1,4 @@
-// ⚡ Firebase config của bạn
+// === Cấu hình Firebase ===
 const firebaseConfig = {
   apiKey: "AIzaSyB5O8Z0X4PFC3qf6QNRsnyww34bBKKNP_E",
   authDomain: "alarm-90538.firebaseapp.com",
@@ -10,71 +10,87 @@ const firebaseConfig = {
   measurementId: "G-2DMVXWG95V"
 };
 
-// Initialize Firebase
+// Khởi tạo Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// DOM elements
-const tempEl = document.getElementById("tempValue");
+// === Lấy tham chiếu các thẻ HTML ===
 const voltageEl = document.getElementById("voltage");
 const currentEl = document.getElementById("current");
 const powerEl = document.getElementById("power");
 const energyEl = document.getElementById("energy");
-const fireEl = document.getElementById("fireStatus");
-const fireCard = document.getElementById("fireCard");
-const fireLog = document.getElementById("fireLog");
+const tempEl = document.getElementById("temperature");
+const fireStatusEl = document.getElementById("fireStatus");
+const fireLogEl = document.getElementById("fireLog");
 
-// Chart setup
-const ctx = document.getElementById('realtimeChart').getContext('2d');
-const chart = new Chart(ctx, {
-  type: 'bar',
+// === Biểu đồ Chart.js ===
+const ctx = document.getElementById("realtimeChart").getContext("2d");
+let chart = new Chart(ctx, {
+  type: "bar",
   data: {
-    labels: ['Điện áp', 'Dòng điện', 'Công suất', 'Năng lượng', 'Nhiệt độ'],
+    labels: ["Điện áp (V)", "Dòng điện (A)", "Công suất (W)", "Năng lượng (Wh)", "Nhiệt độ (°C)"],
     datasets: [{
-      label: 'Giá trị tức thời',
+      label: "Giá trị tức thời",
       data: [0, 0, 0, 0, 0],
-      backgroundColor: ['#4f8ef7', '#00c6ff', '#ffce56', '#ffa600', '#ff4d4d']
+      backgroundColor: ["#4B9CD3", "#76D7C4", "#F7DC6F", "#E59866", "#CD6155"]
     }]
   },
-  options: { scales: { y: { beginAtZero: true } } }
-});
-
-// Lấy dữ liệu realtime từ Firebase
-db.ref("sensors").on("value", snap => {
-  const data = snap.val();
-  if (!data) return;
-
-  tempEl.textContent = `${data.temperature} °C`;
-  voltageEl.textContent = `${data.voltage} V`;
-  currentEl.textContent = `${data.current} A`;
-  powerEl.textContent = `${data.power} W`;
-  energyEl.textContent = `${data.energy} Wh`;
-
-  // Cập nhật chart
-  chart.data.datasets[0].data = [
-    data.voltage, data.current, data.power, data.energy, data.temperature
-  ];
-  chart.update();
-});
-
-// Báo cháy
-db.ref("fire").on("value", snap => {
-  const fire = snap.val();
-  if (fire === true) {
-    fireEl.textContent = "🔥 CẢNH BÁO CHÁY";
-    fireEl.className = "danger";
-    fireCard.style.background = "#ffe5e5";
-  } else {
-    fireEl.textContent = "An toàn 🔵";
-    fireEl.className = "safe";
-    fireCard.style.background = "white";
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
   }
 });
 
-// Nhật ký báo cháy
-db.ref("fire_logs").limitToLast(10).on("child_added", snap => {
-  const log = snap.val();
-  const li = document.createElement("li");
-  li.textContent = `${log.time} - ${log.message}`;
-  fireLog.prepend(li);
+// === Hàm cập nhật dữ liệu hiển thị ===
+function updateDisplay(data) {
+  voltageEl.textContent = data.voltage ? data.voltage.toFixed(2) : "--";
+  currentEl.textContent = data.current ? data.current.toFixed(2) : "--";
+  powerEl.textContent = data.power ? data.power.toFixed(2) : "--";
+  energyEl.textContent = data.energy ? data.energy.toFixed(2) : "--";
+  tempEl.textContent = data.temperature ? data.temperature.toFixed(1) : "--";
+
+  // Cập nhật biểu đồ
+  chart.data.datasets[0].data = [
+    data.voltage || 0,
+    data.current || 0,
+    data.power || 0,
+    data.energy || 0,
+    data.temperature || 0
+  ];
+  chart.update();
+}
+
+// === Lắng nghe dữ liệu từ Firebase ===
+const sensorRef = db.ref("sensors"); // node sensors chứa dữ liệu PZEM & nhiệt độ
+sensorRef.on("value", (snapshot) => {
+  if (snapshot.exists()) {
+    const data = snapshot.val();
+    updateDisplay(data);
+  }
+});
+
+// === Báo cháy (boolean + nhật ký) ===
+const fireRef = db.ref("fireAlarm");
+fireRef.on("value", (snapshot) => {
+  const fireData = snapshot.val();
+  if (fireData) {
+    const isFire = fireData.status === true;
+    fireStatusEl.textContent = isFire ? "🔥 Có cháy!" : "✅ Bình thường";
+    fireStatusEl.style.color = isFire ? "red" : "green";
+
+    // Ghi nhật ký báo cháy (có timestamp)
+    if (fireData.log) {
+      fireLogEl.innerHTML = "";
+      Object.keys(fireData.log).forEach((key) => {
+        const log = fireData.log[key];
+        const li = document.createElement("li");
+        li.textContent = `${log.time} - ${log.message}`;
+        fireLogEl.appendChild(li);
+      });
+    }
+  }
 });
