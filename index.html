@@ -1,54 +1,68 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Giám sát điện & nhiệt độ (Firebase)</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hệ thống giám sát điện & nhiệt độ</title>
   <link rel="stylesheet" href="style.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
-    <h1>🌡️ Hệ thống giám sát điện & nhiệt độ</h1>
+    <h1>⚡ Hệ thống giám sát điện & nhiệt độ</h1>
   </header>
 
-  <main class="dashboard">
-    <section class="card status">
-      <div class="row">
-        <div>
-          <h2>Nhiệt độ</h2>
-          <p id="temp-value">-- °C</p>
-        </div>
-        <div>
-          <h2>Báo cháy</h2>
-          <p id="fire-badge" class="badge normal">Bình thường</p>
-        </div>
+  <main>
+    <section class="top-section">
+      <div class="temperature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1684/1684375.png" alt="temp" class="icon">
+        <h2>Nhiệt độ</h2>
+        <p id="tempValue">-- °C</p>
       </div>
-      <div class="pzem-list">
-        <p>Điện áp: <b id="voltage">--</b> V</p>
-        <p>Dòng điện: <b id="current">--</b> A</p>
-        <p>Công suất: <b id="power">--</b> W</p>
-        <p>Năng lượng: <b id="energy">--</b> Wh</p>
+
+      <div class="fire-card" id="fireCard">
+        <img src="https://cdn-icons-png.flaticon.com/512/482/482058.png" alt="fire" class="icon">
+        <h2>Báo cháy</h2>
+        <p id="fireStatus" class="safe">An toàn 🔵</p>
       </div>
     </section>
 
-    <section class="card chart-card">
+    <section class="sensor-section">
+      <div class="gauge" style="background-image:url('https://cdn-icons-png.flaticon.com/512/2642/2642112.png');">
+        <h3>Điện áp</h3>
+        <p id="voltage">-- V</p>
+      </div>
+      <div class="gauge" style="background-image:url('https://cdn-icons-png.flaticon.com/512/187/187855.png');">
+        <h3>Dòng điện</h3>
+        <p id="current">-- A</p>
+      </div>
+      <div class="gauge" style="background-image:url('https://cdn-icons-png.flaticon.com/512/5584/5584276.png');">
+        <h3>Công suất</h3>
+        <p id="power">-- W</p>
+      </div>
+      <div class="gauge" style="background-image:url('https://cdn-icons-png.flaticon.com/512/3067/3067809.png');">
+        <h3>Năng lượng</h3>
+        <p id="energy">-- Wh</p>
+      </div>
+    </section>
+
+    <section class="chart-section">
       <h2>Biểu đồ giá trị tức thời</h2>
-      <div class="chart-wrap">
-        <canvas id="barChart"></canvas>
-      </div>
-      <div class="fire-log">
-        <h3>Nhật ký báo cháy</h3>
-        <ul id="fire-log-list"></ul>
-      </div>
+      <canvas id="realtimeChart"></canvas>
+    </section>
+
+    <section class="log-section">
+      <h2>🧾 Nhật ký báo cháy</h2>
+      <ul id="fireLog"></ul>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Giám sát | Thiết kế bởi ChatGPT</p>
+    <p>© 2025 Giám sát điện & nhiệt độ Realtime</p>
   </footer>
 
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
